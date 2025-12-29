@@ -1,0 +1,17 @@
+###> jetbrains/phpstorm ###
+/.idea/*
+!/.idea/php.xml
+!/.idea/vcs.xml
+!/.idea/dataSources.xml
+!/.idea/sqldialects.xml
+###< jetbrains/phpstorm ###
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
