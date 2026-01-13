@@ -1,0 +1,32 @@
+[b]{{TITLE}}[/b]
+
+[img]{{POSTER_URL}}[/img]
+
+[img]https://i.imgur.com/6U6WSm8.png[/img]
+
+[b]Origine :[/b] {{COUNTRIES}}
+[b]Première diffusion :[/b] {{FIRST_AIR_DATE}}
+[b]Dernière diffusion :[/b] {{LAST_AIR_DATE}}
+[b]Titre original :[/b] {{ORIGINAL_TITLE}}
+[b]Nombre de saisons :[/b] {{SEASONS_COUNT}}
+[b]Nombre d'épisodes :[/b] {{EPISODES_COUNT}}
+
+[b]Créateurs :[/b]
+{{CREATORS}}
+
+[b]Acteurs :[/b]
+{{CAST}}
+
+[b]Genres :[/b]
+{{GENRES}}
+
+[b]Note :[/b]
+{{RATING}}
+
+[img]https://i.imgur.com/pMjIYG7.png[/img]
+
+{{OVERVIEW}}
+
+{{ACTORS_PHOTOS}}
+
+[img]https://i.imgur.com/0I2W6rD.png[/img]

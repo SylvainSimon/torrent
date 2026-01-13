@@ -144,6 +144,118 @@ class TmdbService
         return $translations[$country] ?? $country;
     }
 
+    public function getSeriesDetails(int $seriesId): array
+    {
+        $response = $this->httpClient->request('GET', self::API_BASE_URL . '/tv/' . $seriesId, [
+            'query' => [
+                'api_key' => $this->tmdbApiKey,
+                'language' => 'fr-FR',
+                'append_to_response' => 'credits',
+            ],
+        ]);
+
+        $data = $response->toArray();
+
+        $firstAirDate = $data['first_air_date'] ?? '';
+        $lastAirDate = $data['last_air_date'] ?? '';
+
+        $countries = array_column($data['origin_country'] ?? [], null);
+        $countriesTranslated = array_map(fn($code) => $this->translateCountryCode($code), $countries);
+
+        return [
+            'title' => $data['name'] ?? '',
+            'original_title' => $data['original_name'] ?? '',
+            'overview' => $data['overview'] ?? '',
+            'poster_url' => isset($data['poster_path']) ? self::IMAGE_BASE_URL . $data['poster_path'] : '',
+            'first_air_date' => $this->formatDate($firstAirDate),
+            'last_air_date' => $this->formatDate($lastAirDate),
+            'seasons_count' => $data['number_of_seasons'] ?? 0,
+            'episodes_count' => $data['number_of_episodes'] ?? 0,
+            'genres' => array_column($data['genres'] ?? [], 'name'),
+            'countries' => $countriesTranslated,
+            'rating' => isset($data['vote_average']) ? round($data['vote_average'], 1) . '/10' : 'N/A',
+            'creators' => array_column($data['created_by'] ?? [], 'name'),
+            'actors' => $this->extractActors($data['credits'] ?? []),
+            'actors_photos' => $this->extractActorsPhotos($data['credits'] ?? []),
+        ];
+    }
+
+    public function getSeasonDetails(int $seriesId, int $seasonNumber): array
+    {
+        // Récupérer d'abord les infos de la série pour avoir les métadonnées générales
+        $seriesResponse = $this->httpClient->request('GET', self::API_BASE_URL . '/tv/' . $seriesId, [
+            'query' => [
+                'api_key' => $this->tmdbApiKey,
+                'language' => 'fr-FR',
+                'append_to_response' => 'credits',
+            ],
+        ]);
+        $seriesData = $seriesResponse->toArray();
+
+        // Récupérer les détails de la saison
+        $seasonResponse = $this->httpClient->request('GET', self::API_BASE_URL . '/tv/' . $seriesId . '/season/' . $seasonNumber, [
+            'query' => [
+                'api_key' => $this->tmdbApiKey,
+                'language' => 'fr-FR',
+            ],
+        ]);
+        $seasonData = $seasonResponse->toArray();
+
+        $airDate = $seasonData['air_date'] ?? '';
+
+        $countries = array_column($seriesData['origin_country'] ?? [], null);
+        $countriesTranslated = array_map(fn($code) => $this->translateCountryCode($code), $countries);
+
+        return [
+            'title' => $seriesData['name'] ?? '',
+            'original_title' => $seriesData['original_name'] ?? '',
+            'overview' => $seasonData['overview'] ?: $seriesData['overview'] ?? '',
+            'poster_url' => isset($seasonData['poster_path']) ? self::IMAGE_BASE_URL . $seasonData['poster_path'] : '',
+            'season_number' => $seasonNumber,
+            'air_date' => $this->formatDate($airDate),
+            'episodes_count' => count($seasonData['episodes'] ?? []),
+            'genres' => array_column($seriesData['genres'] ?? [], 'name'),
+            'countries' => $countriesTranslated,
+            'rating' => isset($seriesData['vote_average']) ? round($seriesData['vote_average'], 1) . '/10' : 'N/A',
+            'creators' => array_column($seriesData['created_by'] ?? [], 'name'),
+            'actors' => $this->extractActors($seriesData['credits'] ?? []),
+            'actors_photos' => $this->extractActorsPhotos($seriesData['credits'] ?? []),
+        ];
+    }
+
+    private function translateCountryCode(string $code): string
+    {
+        $translations = [
+            'US' => 'États-Unis',
+            'GB' => 'Royaume-Uni',
+            'FR' => 'France',
+            'DE' => 'Allemagne',
+            'ES' => 'Espagne',
+            'IT' => 'Italie',
+            'JP' => 'Japon',
+            'CN' => 'Chine',
+            'KR' => 'Corée du Sud',
+            'CA' => 'Canada',
+            'AU' => 'Australie',
+            'BR' => 'Brésil',
+            'MX' => 'Mexique',
+            'IN' => 'Inde',
+            'RU' => 'Russie',
+            'BE' => 'Belgique',
+            'NL' => 'Pays-Bas',
+            'CH' => 'Suisse',
+            'AT' => 'Autriche',
+            'SE' => 'Suède',
+            'NO' => 'Norvège',
+            'DK' => 'Danemark',
+            'PL' => 'Pologne',
+            'IE' => 'Irlande',
+            'NZ' => 'Nouvelle-Zélande',
+        ];
+
+        return $translations[$code] ?? $code;
+    }
+
     public function formatRuntime(int $minutes): string
     {
         $hours = floor($minutes / 60);
