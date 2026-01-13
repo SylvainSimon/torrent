@@ -37,7 +37,7 @@ class BbCodeGeneratorService
             '{{RATING}}' => $movieData['rating'] ?? 'N/A',
             '{{RATING_BADGE}}' => $movieData['rating_badge'] ?? '',
             '{{OVERVIEW}}' => $movieData['overview'] ?? '',
-            '{{ACTORS_PHOTOS}}' => implode("\n", $actorsPhotos),
+            '{{ACTORS_PHOTOS}}' => implode(' ', $actorsPhotos),
         ];
 
         return str_replace(array_keys($replacements), array_values($replacements), $template);
@@ -73,7 +73,7 @@ class BbCodeGeneratorService
             '{{RATING}}' => $seriesData['rating'] ?? 'N/A',
             '{{RATING_BADGE}}' => $seriesData['rating_badge'] ?? '',
             '{{OVERVIEW}}' => $seriesData['overview'] ?? '',
-            '{{ACTORS_PHOTOS}}' => implode("\n", $actorsPhotos),
+            '{{ACTORS_PHOTOS}}' => implode(' ', $actorsPhotos),
         ];
 
         return str_replace(array_keys($replacements), array_values($replacements), $template);
@@ -108,7 +108,7 @@ class BbCodeGeneratorService
             '{{RATING}}' => $seasonData['rating'] ?? 'N/A',
             '{{RATING_BADGE}}' => $seasonData['rating_badge'] ?? '',
             '{{OVERVIEW}}' => $seasonData['overview'] ?? '',
-            '{{ACTORS_PHOTOS}}' => implode("\n", $actorsPhotos),
+            '{{ACTORS_PHOTOS}}' => implode(' ', $actorsPhotos),
         ];
 
         return str_replace(array_keys($replacements), array_values($replacements), $template);

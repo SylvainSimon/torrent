@@ -7,7 +7,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class TmdbService
 {
     private const API_BASE_URL = 'https://api.themoviedb.org/3';
-    private const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/original';
+    private const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
     public function __construct(
         private readonly HttpClientInterface $httpClient,
