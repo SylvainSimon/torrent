@@ -33,6 +33,9 @@ class TmdbService
         $countries = array_column($data['production_countries'] ?? [], 'name');
         $countriesTranslated = array_map(fn($country) => $this->translateCountry($country), $countries);
 
+        $rating = $data['vote_average'] ?? 0;
+        $ratingBadge = $rating > 0 ? $this->generateRatingBadge($rating) : '';
+
         return [
             'title' => $data['title'] ?? '',
             'original_title' => $data['original_title'] ?? '',
@@ -44,6 +47,7 @@ class TmdbService
             'genres' => array_column($data['genres'] ?? [], 'name'),
             'countries' => $countriesTranslated,
             'rating' => isset($data['vote_average']) ? round($data['vote_average'], 1) . '/10' : 'N/A',
+            'rating_badge' => $ratingBadge,
             'directors' => $this->extractDirectors($data['credits'] ?? []),
             'actors' => $this->extractActors($data['credits'] ?? []),
             'actors_photos' => $this->extractActorsPhotos($data['credits'] ?? []),
@@ -162,6 +166,9 @@ class TmdbService
         $countries = array_column($data['origin_country'] ?? [], null);
         $countriesTranslated = array_map(fn($code) => $this->translateCountryCode($code), $countries);
 
+        $rating = $data['vote_average'] ?? 0;
+        $ratingBadge = $rating > 0 ? $this->generateRatingBadge($rating) : '';
+
         return [
             'title' => $data['name'] ?? '',
             'original_title' => $data['original_name'] ?? '',
@@ -174,6 +181,7 @@ class TmdbService
             'genres' => array_column($data['genres'] ?? [], 'name'),
             'countries' => $countriesTranslated,
             'rating' => isset($data['vote_average']) ? round($data['vote_average'], 1) . '/10' : 'N/A',
+            'rating_badge' => $ratingBadge,
             'creators' => array_column($data['created_by'] ?? [], 'name'),
             'actors' => $this->extractActors($data['credits'] ?? []),
             'actors_photos' => $this->extractActorsPhotos($data['credits'] ?? []),
@@ -206,6 +214,9 @@ class TmdbService
         $countries = array_column($seriesData['origin_country'] ?? [], null);
         $countriesTranslated = array_map(fn($code) => $this->translateCountryCode($code), $countries);
 
+        $rating = $seriesData['vote_average'] ?? 0;
+        $ratingBadge = $rating > 0 ? $this->generateRatingBadge($rating) : '';
+
         return [
             'title' => $seriesData['name'] ?? '',
             'original_title' => $seriesData['original_name'] ?? '',
@@ -217,6 +228,7 @@ class TmdbService
             'genres' => array_column($seriesData['genres'] ?? [], 'name'),
             'countries' => $countriesTranslated,
             'rating' => isset($seriesData['vote_average']) ? round($seriesData['vote_average'], 1) . '/10' : 'N/A',
+            'rating_badge' => $ratingBadge,
             'creators' => array_column($seriesData['created_by'] ?? [], 'name'),
             'actors' => $this->extractActors($seriesData['credits'] ?? []),
             'actors_photos' => $this->extractActorsPhotos($seriesData['credits'] ?? []),
@@ -261,5 +273,24 @@ class TmdbService
         $hours = floor($minutes / 60);
         $mins = $minutes % 60;
         return sprintf('%dh%02d', $hours, $mins);
+    }
+
+    public function generateRatingBadge(float $rating): string
+    {
+        // Déterminer la couleur en fonction de la note
+        $color = 'red';
+        if ($rating >= 7) {
+            $color = 'brightgreen';
+        } elseif ($rating >= 5) {
+            $color = 'yellow';
+        } elseif ($rating >= 3) {
+            $color = 'orange';
+        }
+
+        // Encoder la note pour l'URL
+        $label = urlencode('Note');
+        $value = urlencode(number_format($rating, 1) . '/10');
+
+        return "https://img.shields.io/badge/{$label}-{$value}-{$color}?style=for-the-badge&logo=star&logoColor=white";
     }
 }

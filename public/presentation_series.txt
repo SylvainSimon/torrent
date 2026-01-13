@@ -21,7 +21,7 @@
 {{GENRES}}
 
 [b]Note :[/b]
-{{RATING}}
+[img]{{RATING_BADGE}}[/img]
 
 [img]https://i.imgur.com/pMjIYG7.png[/img]
 

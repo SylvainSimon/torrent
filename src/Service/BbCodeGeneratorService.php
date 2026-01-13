@@ -35,6 +35,7 @@ class BbCodeGeneratorService
             '{{CAST}}' => implode(', ', $movieData['actors'] ?? []),
             '{{GENRES}}' => implode(', ', $movieData['genres'] ?? []),
             '{{RATING}}' => $movieData['rating'] ?? 'N/A',
+            '{{RATING_BADGE}}' => $movieData['rating_badge'] ?? '',
             '{{OVERVIEW}}' => $movieData['overview'] ?? '',
             '{{ACTORS_PHOTOS}}' => implode("\n", $actorsPhotos),
         ];
@@ -70,6 +71,7 @@ class BbCodeGeneratorService
             '{{CAST}}' => implode(', ', $seriesData['actors'] ?? []),
             '{{GENRES}}' => implode(', ', $seriesData['genres'] ?? []),
             '{{RATING}}' => $seriesData['rating'] ?? 'N/A',
+            '{{RATING_BADGE}}' => $seriesData['rating_badge'] ?? '',
             '{{OVERVIEW}}' => $seriesData['overview'] ?? '',
             '{{ACTORS_PHOTOS}}' => implode("\n", $actorsPhotos),
         ];
@@ -104,6 +106,7 @@ class BbCodeGeneratorService
             '{{CAST}}' => implode(', ', $seasonData['actors'] ?? []),
             '{{GENRES}}' => implode(', ', $seasonData['genres'] ?? []),
             '{{RATING}}' => $seasonData['rating'] ?? 'N/A',
+            '{{RATING_BADGE}}' => $seasonData['rating_badge'] ?? '',
             '{{OVERVIEW}}' => $seasonData['overview'] ?? '',
             '{{ACTORS_PHOTOS}}' => implode("\n", $actorsPhotos),
         ];
