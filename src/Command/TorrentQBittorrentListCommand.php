@@ -10,10 +10,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
-    name: 'app:torrent:list',
+    name: 'app:torrent:qBittorrent:list',
     description: 'List all torrents from qBittorrent instance',
 )]
-class ListTorrentsCommand extends Command
+class TorrentQBittorrentListCommand extends Command
 {
     public function __construct(
         private readonly QBittorrentService $qBittorrentService
