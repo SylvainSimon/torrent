@@ -28,3 +28,11 @@ services:
             $qbittorrentUrl: '%env(QBITTORRENT_URL)%'
             $qbittorrentUsername: '%env(QBITTORRENT_USERNAME)%'
             $qbittorrentPassword: '%env(QBITTORRENT_PASSWORD)%'
+
+    App\Service\TmdbService:
+        arguments:
+            $tmdbApiKey: '%env(TMDB_API_KEY)%'
+
+    App\Service\BbCodeGeneratorService:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
