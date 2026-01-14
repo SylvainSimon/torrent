@@ -1,7 +1,5 @@
 [size=20][b]{{TITLE}}[/b][/size]
 
-[img]{{RATING_BADGE}}[/img]
-
 [img]{{POSTER_URL}}[/img]
 
 [list][/list]
@@ -14,6 +12,10 @@
 [b]Origine :[/b] {{COUNTRIES}}
 [b]Sortie :[/b] {{RELEASE_DATE}}
 [b]Durée :[/b] {{RUNTIME}}
+
+[list][/list]
+
+[img]{{RATING_BADGE}}[/img]
 
 [b]Réalisateurs[/b]
 {{DIRECTORS}}

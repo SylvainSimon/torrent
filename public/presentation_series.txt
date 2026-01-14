@@ -1,7 +1,5 @@
 [size=20][b]{{TITLE}}[/b][/size]
 
-[img]{{RATING_BADGE}}[/img]
-
 [img]{{POSTER_URL}}[/img]
 
 [list][/list]
@@ -16,6 +14,10 @@
 [b]Titre original :[/b] {{ORIGINAL_TITLE}}
 [b]Nombre de saisons :[/b] {{SEASONS_COUNT}}
 [b]Nombre d'épisodes :[/b] {{EPISODES_COUNT}}
+
+[list][/list]
+
+[img]{{RATING_BADGE}}[/img]
 
 [b]Créateurs[/b]
 {{CREATORS}}
