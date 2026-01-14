@@ -1,30 +1,43 @@
-[b]{{TITLE}} - Saison {{SEASON_NUMBER}}[/b]
+[size=20][b]{{TITLE}} - Saison {{SEASON_NUMBER}}[/b][/size]
+
+[img]{{RATING_BADGE}}[/img]
 
 [img]{{POSTER_URL}}[/img]
 
+[list][/list]
+
 [img]https://i.imgur.com/6U6WSm8.png[/img]
+
+[list][/list]
 
 [b]Origine :[/b] {{COUNTRIES}}
 [b]Diffusion :[/b] {{AIR_DATE}}
 [b]Titre original :[/b] {{ORIGINAL_TITLE}}
 [b]Nombre d'épisodes :[/b] {{EPISODES_COUNT}}
 
-[b]Créateurs :[/b]
+[b]Créateurs[/b]
 {{CREATORS}}
 
-[b]Acteurs :[/b]
+[b]Acteurs[/b]
 {{CAST}}
 
-[b]Genres :[/b]
+[b]Genres[/b]
 {{GENRES}}
 
-[b]Note :[/b]
-[img]{{RATING_BADGE}}[/img]
+[list][/list]
 
 [img]https://i.imgur.com/pMjIYG7.png[/img]
 
+[list][/list]
+
 {{OVERVIEW}}
+
+[list][/list]
 
 {{ACTORS_PHOTOS}}
 
+[list][/list]
+
 [img]https://i.imgur.com/0I2W6rD.png[/img]
+
+[list][/list]

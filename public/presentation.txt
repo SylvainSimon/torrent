@@ -1,30 +1,43 @@
-[b]{{TITLE}}[/b]
+[size=20][b]{{TITLE}}[/b][/size]
+
+[img]{{RATING_BADGE}}[/img]
 
 [img]{{POSTER_URL}}[/img]
 
+[list][/list]
+
 [img]https://i.imgur.com/6U6WSm8.png[/img]
 
+[list][/list]
+
+[b]Titre original :[/b] {{ORIGINAL_TITLE}}
 [b]Origine :[/b] {{COUNTRIES}}
 [b]Sortie :[/b] {{RELEASE_DATE}}
-[b]Titre original :[/b] {{ORIGINAL_TITLE}}
 [b]Durée :[/b] {{RUNTIME}}
 
-[b]Réalisateurs :[/b]
+[b]Réalisateurs[/b]
 {{DIRECTORS}}
 
-[b]Acteurs :[/b]
+[b]Acteurs[/b]
 {{CAST}}
 
-[b]Genres :[/b]
+[b]Genres[/b]
 {{GENRES}}
 
-[b]Note :[/b]
-[img]{{RATING_BADGE}}[/img]
+[list][/list]
 
 [img]https://i.imgur.com/pMjIYG7.png[/img]
 
+[list][/list]
+
 {{OVERVIEW}}
+
+[list][/list]
 
 {{ACTORS_PHOTOS}}
 
+[list][/list]
+
 [img]https://i.imgur.com/0I2W6rD.png[/img]
+
+[list][/list]
