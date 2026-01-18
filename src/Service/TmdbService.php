@@ -275,6 +275,74 @@ class TmdbService
         return sprintf('%dh%02d', $hours, $mins);
     }
 
+    public function getCollectionDetails(int $collectionId): array
+    {
+        $response = $this->httpClient->request('GET', self::API_BASE_URL . '/collection/' . $collectionId, [
+            'query' => [
+                'api_key' => $this->tmdbApiKey,
+                'language' => 'fr-FR',
+            ],
+        ]);
+
+        $data = $response->toArray();
+
+        $allActors = [];
+        $allGenres = [];
+        $allActorsPhotos = [];
+        $movies = [];
+
+        // Récupérer les détails de chaque film pour extraire acteurs et genres
+        foreach ($data['parts'] ?? [] as $movie) {
+            $movieId = $movie['id'];
+            $movieDetails = $this->getMovieDetails($movieId);
+
+            $releaseDate = $movie['release_date'] ?? '';
+            $movies[] = [
+                'title' => $movie['title'] ?? '',
+                'release_date' => $this->formatDate($releaseDate),
+                'release_date_raw' => $releaseDate, // Garder la date brute pour le tri
+                'overview' => $movie['overview'] ?? '',
+            ];
+
+            // Agréger les acteurs uniques
+            foreach ($movieDetails['actors'] ?? [] as $actor) {
+                if (!in_array($actor, $allActors)) {
+                    $allActors[] = $actor;
+                }
+            }
+
+            // Agréger les genres uniques
+            foreach ($movieDetails['genres'] ?? [] as $genre) {
+                if (!in_array($genre, $allGenres)) {
+                    $allGenres[] = $genre;
+                }
+            }
+
+            // Agréger les photos d'acteurs uniques
+            foreach ($movieDetails['actors_photos'] ?? [] as $photo) {
+                if (!in_array($photo, $allActorsPhotos) && count($allActorsPhotos) < 5) {
+                    $allActorsPhotos[] = $photo;
+                }
+            }
+        }
+
+        // Trier les films par date de sortie (utiliser la date brute)
+        usort($movies, function($a, $b) {
+            return strcmp($a['release_date_raw'], $b['release_date_raw']);
+        });
+
+        return [
+            'title' => $data['name'] ?? '',
+            'overview' => $data['overview'] ?? '',
+            'poster_url' => isset($data['poster_path']) ? self::IMAGE_BASE_URL . $data['poster_path'] : '',
+            'movies_count' => count($movies),
+            'movies' => $movies,
+            'actors' => array_slice($allActors, 0, 5), // Limiter à 5 acteurs principaux
+            'genres' => $allGenres,
+            'actors_photos' => $allActorsPhotos,
+        ];
+    }
+
     public function generateRatingBadge(float $rating): string
     {
         // Déterminer la couleur en fonction de la note

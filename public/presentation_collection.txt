@@ -1,0 +1,39 @@
+[b]{{TITLE}}[/b]
+
+[img]{{POSTER_URL}}[/img]
+
+[list][/list]
+
+[img]https://i.imgur.com/6U6WSm8.png[/img]
+
+[b]Nombre de films :[/b] {{MOVIES_COUNT}}
+
+[b]Acteurs principaux :[/b]
+{{CAST}}
+
+[b]Genres :[/b]
+{{GENRES}}
+
+[list][/list]
+
+[img]https://i.imgur.com/pMjIYG7.png[/img]
+
+[list][/list]
+
+{{OVERVIEW}}
+
+[list][/list]
+
+[b]Films de la collection[/b]
+
+{{MOVIES_LIST}}
+
+[list][/list]
+
+{{ACTORS_PHOTOS}}
+
+[list][/list]
+
+[img]https://i.imgur.com/0I2W6rD.png[/img]
+
+[list][/list]

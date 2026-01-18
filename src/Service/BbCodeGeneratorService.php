@@ -113,4 +113,41 @@ class BbCodeGeneratorService
 
         return str_replace(array_keys($replacements), array_values($replacements), $template);
     }
+
+    public function generateCollectionDescription(array $collectionData): string
+    {
+        $templatePath = $this->projectDir . '/public/presentation_collection.txt';
+
+        if (!file_exists($templatePath)) {
+            throw new \RuntimeException('Template file not found: ' . $templatePath);
+        }
+
+        $template = file_get_contents($templatePath);
+
+        // Générer la liste des films (sans synopsis)
+        $moviesList = [];
+        foreach ($collectionData['movies'] ?? [] as $index => $movie) {
+            $movieNumber = $index + 1;
+            $moviesList[] = "[b]{$movieNumber}. {$movie['title']}[/b] ({$movie['release_date']})";
+        }
+
+        // Générer les photos d'acteurs
+        $actorsPhotos = array_map(
+            fn($url) => '[img]' . $url . '[/img]',
+            $collectionData['actors_photos'] ?? []
+        );
+
+        $replacements = [
+            '{{TITLE}}' => $collectionData['title'] ?? 'N/A',
+            '{{POSTER_URL}}' => $collectionData['poster_url'] ?? '',
+            '{{MOVIES_COUNT}}' => $collectionData['movies_count'] ?? 0,
+            '{{CAST}}' => implode(', ', $collectionData['actors'] ?? []),
+            '{{GENRES}}' => implode(', ', $collectionData['genres'] ?? []),
+            '{{OVERVIEW}}' => $collectionData['overview'] ?? '',
+            '{{ACTORS_PHOTOS}}' => implode(' ', $actorsPhotos),
+            '{{MOVIES_LIST}}' => implode("\n", $moviesList),
+        ];
+
+        return str_replace(array_keys($replacements), array_values($replacements), $template);
+    }
 }
