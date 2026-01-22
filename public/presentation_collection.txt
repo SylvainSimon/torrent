@@ -6,12 +6,10 @@
 
 [img]https://i.imgur.com/6U6WSm8.png[/img]
 
-[b]Nombre de films :[/b] {{MOVIES_COUNT}}
-
-[b]Acteurs principaux :[/b]
+[b]Acteurs principaux[/b]
 {{CAST}}
 
-[b]Genres :[/b]
+[b]Genres[/b]
 {{GENRES}}
 
 [list][/list]
