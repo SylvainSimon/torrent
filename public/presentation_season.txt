@@ -8,6 +8,7 @@
 
 [list][/list]
 
+[b]Saison :[/b] {{SEASON_NUMBER}}
 [b]Origine :[/b] {{COUNTRIES}}
 [b]Diffusion :[/b] {{AIR_DATE}}
 [b]Titre original :[/b] {{ORIGINAL_TITLE}}
