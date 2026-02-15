@@ -1,5 +1,3 @@
-[size=20][b]{{TITLE}}[/b][/size]
-
 [img]{{POSTER_URL}}[/img]
 
 [list][/list]
